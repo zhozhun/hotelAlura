@@ -14,15 +14,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.JComboBox;
 
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JCalendar;
 //import com.toedter.calendar.JDatePanel;
 
 public class MenuReservas extends JFrame {
+
+	private int numeroReserva;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
@@ -62,12 +64,23 @@ public class MenuReservas extends JFrame {
 		etiquetaFechaSalida.setFont(fuenteEtiquetaSalida);
 		add(etiquetaFechaSalida);
 
+		JLabel etiquetaDesplegable = new JLabel("Método de pago: ");
+		etiquetaDesplegable.setBounds(700, 500, 200, 30);
+		Font fuenteDesplegable = new Font("Arial", Font.BOLD, 18);
+		etiquetaDesplegable.setFont(fuenteDesplegable);
+		add(etiquetaDesplegable);
+
 //		2.3. Textos
 
 		JTextField cuadroResultado = new JTextField();
-		cuadroResultado.setBounds(700, 450, 400, 30);
+		cuadroResultado.setBounds(700, 400, 400, 30);
 		cuadroResultado.setEditable(false);
 		add(cuadroResultado);
+
+		JTextField cuadroIdReserva = new JTextField();
+		cuadroIdReserva.setBounds(700, 450, 400, 30);
+		cuadroIdReserva.setEditable(false);
+		add(cuadroIdReserva);
 
 //		JTextField cuadroDiasAlojamiento = new JTextField();
 //		cuadroDiasAlojamiento.setBounds(700, 450, 200, 30); 
@@ -83,7 +96,7 @@ public class MenuReservas extends JFrame {
 //		2.4. Botones
 
 		JButton botonCalcularTarifa = new JButton("Calcular Tarifa");
-		botonCalcularTarifa.setBounds(700, 400, 150, 30);
+		botonCalcularTarifa.setBounds(700, 350, 150, 30);
 		add(botonCalcularTarifa);
 
 //		JButton botonCalcular = new JButton("Calcular tarifa");
@@ -93,6 +106,12 @@ public class MenuReservas extends JFrame {
 //		JButton botonCalcularCosto = new JButton("Calcular Costo");
 //		botonCalcularCosto.setBounds(700, 400, 150, 30); 
 //		add(botonCalcularCosto);
+
+		JButton botonConfirmar = new JButton("Confirmar →");
+		botonConfirmar.setBounds(700, 660, 150, 80);
+		botonConfirmar.setBackground(new Color(51, 153, 255));
+		botonConfirmar.setFont(new Font("Arial", Font.BOLD, 16));
+		add(botonConfirmar);
 
 		JButton botonInicio = new JButton("⌂");
 		botonInicio.setBounds(1100, 660, 80, 80);
@@ -110,10 +129,15 @@ public class MenuReservas extends JFrame {
 
 //		2.5. Imágenes
 
-		ImageIcon imagenTitulo = new ImageIcon("images/gifReservas.gif");
-		JLabel labelImagenTitulo = new JLabel(imagenTitulo);
-		labelImagenTitulo.setBounds(50, 100, 600, 600);
-		add(labelImagenTitulo);
+		ImageIcon imagenReservas = new ImageIcon("images/tituloReservas.png");
+		JLabel labelImagenReservas = new JLabel(imagenReservas);
+		labelImagenReservas.setBounds(50, 20, 600, 200);
+		add(labelImagenReservas);
+
+		ImageIcon gifReservas = new ImageIcon("images/gifReservas2.gif");
+		JLabel labelGifReservas = new JLabel(gifReservas);
+		labelGifReservas.setBounds(50, 100, 600, 600);
+		add(labelGifReservas);
 
 //		2.6. Elementos de calendario
 
@@ -138,30 +162,65 @@ public class MenuReservas extends JFrame {
 			}
 		});
 
-//		2.7. Métodos
+//		2.7. ComboBox
+		String[] opcionesPago = { "Tarjeta débito", "Tarjeta de crédito", "Efectivo" };
+		JComboBox<String> comboBoxPago = new JComboBox<>(opcionesPago);
+		comboBoxPago.setBounds(700, 550, 200, 30);
+		add(comboBoxPago);
 
+//		2.8. Métodos
+
+//		calcular tarifa, número de días e Id de reserva
+
+		numeroReserva = 0;
 		botonCalcularTarifa.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Obtiene las fechas seleccionadas
+				// Obtener las fechas seleccionadas
 				Date fechaIngreso = fechaIngresoChooser.getDate();
 				Date fechaSalida = fechaSalidaChooser.getDate();
 
-				// Calcula la diferencia en días
-				long diferenciaEnMillis = fechaSalida.getTime() - fechaIngreso.getTime();
-				int diasAlojamiento = (int) (diferenciaEnMillis / (1000 * 60 * 60 * 24)); // Convierte millis a días
+				// Verificar si la fecha de salida es anterior a la fecha de entrada
+				if (fechaSalida.before(fechaIngreso)) {
+					cuadroResultado.setText("La fecha de salida debe ser posterior a la fecha de entrada.");
+				} else {
+					// Calcular la diferencia en días
+					long diferenciaEnMillis = fechaSalida.getTime() - fechaIngreso.getTime();
+					int diasAlojamiento = (int) (diferenciaEnMillis / (1000 * 60 * 60 * 24)); // Convierte millis a días
 
-				// Calcula el costo en dólares (suponiendo $80 por día)
-				double costoPorDia = 80.0;
-				double costoTotal = costoPorDia * diasAlojamiento;
+					// Calcular el costo en dólares (suponiendo $80 por día)
+					double costoPorDia = 80.0;
+					double costoTotal = costoPorDia * diasAlojamiento;
 
-				// Muestra el resultado en el cuadro de texto
-				cuadroResultado
-						.setText("Días: " + diasAlojamiento + " | Costo Total: $" + String.format("%.2f", costoTotal));
+					// Generar un número de reserva aleatorio de 6 dígitos
+					numeroReserva = (int) (Math.random() * 900000 + 100000); // Genera un número entre 100000 y 999999
+
+					// Mostrar el resultado en los cuadros de texto
+					cuadroResultado.setText(
+							"Días: " + diasAlojamiento + " | Costo Total: $" + String.format("%.2f", costoTotal));
+					cuadroIdReserva.setText("ID de Reserva: " + numeroReserva);
+				}
 			}
 		});
-		
-		// Botón para ir a MenuPrincipal
+
+//		Botón para ir a Registro
+
+		botonConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Oculta la ventana actual (MenuPrincipal)
+				setVisible(false);
+
+				// Crea una instancia de MenuUsuario y la muestra
+				MenuRegistro menuRegistro = new MenuRegistro();
+				// Asignar el número de reserva a cuadroIdReserva en la nueva ventana
+                menuRegistro.cuadroIdReserva.setText("ID de Reserva: " + numeroReserva);
+				menuRegistro.setVisible(true);
+			}
+
+		});
+
+// 		Botón para ir a MenuPrincipal
+
 		botonInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Oculta la ventana actual (MenuPrincipal)
@@ -217,8 +276,6 @@ public class MenuReservas extends JFrame {
 //		        cuadroCostoTotal.setText("$" + String.format("%.2f", costoTotal));
 //		    }
 //		});
-
-
 
 	}
 }

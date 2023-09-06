@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import com.alura.jdbc.dao.UsuarioDAO;
+import com.alura.jdbc.modelo.PlaceholderTextField;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -26,6 +27,7 @@ public class MenuUsuario extends JFrame {
 		setLayout(null);
 
 //    	1. Elementos básicos
+		
 //		Configurar el título de la ventana
 		setTitle("Iniciar sesión");
 //		Establecer el tamaño de la ventana (ancho x alto)
@@ -35,6 +37,7 @@ public class MenuUsuario extends JFrame {
 
 //      2. Componentes
 //		2.1. Páneles
+		
 //		poner imagen primero para que aparezca encima del pánel
 		ImageIcon imagenTitulo = new ImageIcon("images/tituloIniciarSesion.png");
 		JLabel labelImagenTitulo = new JLabel(imagenTitulo);
@@ -54,6 +57,7 @@ public class MenuUsuario extends JFrame {
 		add(panelIzquierdo);
 
 //		2.2.Labels/Etiquetas
+		
 		JLabel etiquetaUsuario = new JLabel("Usuario: ");
 		etiquetaUsuario.setBounds(725, 370, 200, 30);
 		Font fuenteEtiquetaUsuario = new Font("Arial", Font.BOLD, 16);
@@ -67,8 +71,9 @@ public class MenuUsuario extends JFrame {
 		add(etiquetaContrasena);
 
 //		2.3. Textos
+		
 //		agregar texto con place holder
-		JTextFieldConPlaceholder textoUsuario = new JTextFieldConPlaceholder("Ingresar el usuario");
+		PlaceholderTextField textoUsuario = new PlaceholderTextField("Ingresar el usuario");
 		textoUsuario.setBounds(725, 400, 300, 40);
 //		modificar bordes
 		textoUsuario.setBorder(new RoundedBorder(10)); // El valor 10 es el radio de las esquinas redondeadas
@@ -81,6 +86,7 @@ public class MenuUsuario extends JFrame {
 		add(textoContrasena);
 
 //		2.4. Botones
+		
 		Color color1 = new Color(24, 181, 231); // Color central
 		Color color2 = new Color(33, 155, 194); // Color exterior
 		BotonDegradadoRadial botonLogin = new BotonDegradadoRadial("Iniciar sesión", color1, color2);
@@ -107,12 +113,14 @@ public class MenuUsuario extends JFrame {
 		botonInicio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 //		2.5. Imágenes
+		
 		ImageIcon imagenLogin = new ImageIcon("images/safe1.gif");
 		JLabel labelImagenLogin = new JLabel(imagenLogin);
 		labelImagenLogin.setBounds(725, 50, 300, 300);
 		add(labelImagenLogin);
 
 //		2.6. Métodos
+		
         // Botón para ir a MenuPrincipal
         botonInicio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -139,10 +147,12 @@ public class MenuUsuario extends JFrame {
 
                 if (autenticado) {
                     // Si las credenciales son válidas, realizar acciones para iniciar sesión
-                    
                     JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
-                    // Aquí puedes agregar código para redirigir a la siguiente ventana (Menú de Reservas)
-                    // Por ahora, cerramos la ventana actual
+                  
+//                 código para redirigir a la siguiente ventana (Menú de Reservas)
+                   MenuReservas menuReservas = new MenuReservas();
+                   menuReservas.setVisible(true);
+                    
                     dispose();
                 } else {
                     // Si las credenciales no son válidas, mostrar un mensaje de error

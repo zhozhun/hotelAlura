@@ -37,8 +37,8 @@ public class MenuPrincipal extends JFrame {
 //			Configurar la operación al cerrar la ventana
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//	      2. Componentes
-//			2.1. Páneles
+//	    2. Componentes
+//		2.1. Páneles
 		
 		JLabel etiquetaIniciar = new JLabel("Iniciar");
 		etiquetaIniciar.setBounds(835, 350, 200, 30);
