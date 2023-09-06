@@ -2,6 +2,9 @@ package com.alura.view;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+
+import com.alura.jdbc.dao.UsuarioDAO;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +27,7 @@ public class MenuUsuario extends JFrame {
 
 //    	1. Elementos básicos
 //		Configurar el título de la ventana
-		setTitle("Alura Hotel");
+		setTitle("Iniciar sesión");
 //		Establecer el tamaño de la ventana (ancho x alto)
 		setSize(1200, 800);
 //		Configurar la operación al cerrar la ventana
@@ -123,6 +126,33 @@ public class MenuUsuario extends JFrame {
 
         });
 		
+        
+        // Botón para iniciar sesión
+        botonLogin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String nombreUsuario = textoUsuario.getText();
+                String contrasena = new String(textoContrasena.getPassword());
+
+                // Verificar las credenciales directamente con UsuarioDAO
+                UsuarioDAO usuarioDAO = new UsuarioDAO();
+                boolean autenticado = usuarioDAO.autenticarUsuario(nombreUsuario, contrasena);
+
+                if (autenticado) {
+                    // Si las credenciales son válidas, realizar acciones para iniciar sesión
+                    
+                    JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
+                    // Aquí puedes agregar código para redirigir a la siguiente ventana (Menú de Reservas)
+                    // Por ahora, cerramos la ventana actual
+                    dispose();
+                } else {
+                    // Si las credenciales no son válidas, mostrar un mensaje de error
+                    JOptionPane.showMessageDialog(null, "Credenciales incorrectas. Intente nuevamente.");
+                    // Puedes agregar más lógica según tus requerimientos, como bloquear el acceso después de varios intentos fallidos
+                }
+            }
+        });
+        
+        
 	}
 }
 

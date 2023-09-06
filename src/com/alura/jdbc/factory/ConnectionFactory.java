@@ -18,7 +18,7 @@ public class ConnectionFactory {
 			// Registrar el controlador JDBC de MySQL
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-			// Establece la conexión a la base de datos
+			// Establecer la conexión a la base de datos
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 		} catch (ClassNotFoundException e) {
 			System.err.println("Error: No se pudo cargar el controlador JDBC");

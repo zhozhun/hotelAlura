@@ -7,11 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 ////1.Menú Princpial haciendo click en login, 
-//2. Login 
-//3. Menú de Usuario
-//3.1. Reservas * Fecha check in * fecha check out * Calculas valor de la reserva, ^ Método de pago TC TD DE, Botón continuar, Generar número de reserva
-//3.1.1. Registro de huésped: Nombre, Apellido, Fecha de nacimiento Nacionalidad, Teléfono, Número de la reserva (Creado en la ventana anterior), Botón Guardar, Hay botón cancelar, Hay botón salir, si exitoso mostrar ventana Exitoso, volver al menú principal 
-//3.2. Búsqueda de reserva: Pestaña búsqueda por huéspedes, pestaña búsqueda por número de reserva, botón salir al menú principal, al hacer click en este se debe preguntar si realmente desea salir 
+//2. Menú de Usuario
+//2.1. Reservas * Fecha check in * fecha check out * Calculas valor de la reserva, ^ Método de pago TC TD DE, Botón continuar, Generar número de reserva
+//2.1.1. Registro de huésped: Nombre, Apellido, Fecha de nacimiento Nacionalidad, Teléfono, Número de la reserva (Creado en la ventana anterior), Botón Guardar, Hay botón cancelar, Hay botón salir, si exitoso mostrar ventana Exitoso, volver al menú principal 
+//2.2. Búsqueda de reserva: Pestaña búsqueda por huéspedes, pestaña búsqueda por número de reserva, botón salir al menú principal, al hacer click en este se debe preguntar si realmente desea salir 
 
 
 public class MenuPrincipal extends JFrame {
