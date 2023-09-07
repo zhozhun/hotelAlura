@@ -54,10 +54,10 @@ public class MenuPrincipal extends JFrame {
 
 		Color color1 = new Color(33, 155, 194); // Color central
 		Color color2 = new Color(51, 153, 255); // Color exterior
-		BotonDegradadoRadial botonInicio = new BotonDegradadoRadial("⌂", color1, color2);
+		BotonDegradadoRadial botonInicio = new BotonDegradadoRadial("♜", color1, color2);
 		botonInicio.setBounds(825, 400, 150, 150);
 		botonInicio.setBorder(new RoundedBorder(40));
-		Font fuenteBotonInicio= new Font("Arial", Font.BOLD, 60);
+		Font fuenteBotonInicio= new Font("Arial", Font.BOLD, 70);
 		botonInicio.setFont(fuenteBotonInicio);
 		add(botonInicio);
 		// Cambiar tipo de cursos al hacer click encima

@@ -14,12 +14,15 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import com.alura.jdbc.modelo.PlaceholderTextField;
 import com.toedter.calendar.JDateChooser;
+
+import com.alura.jdbc.controller.HuespedesController;
 
 public class MenuRegistro extends JFrame {
 	PlaceholderTextField cuadroIdReserva;
@@ -48,9 +51,9 @@ public class MenuRegistro extends JFrame {
 //		2. Componentes
 //		2.1. Páneles
 
-		ImageIcon gifRegistro = new ImageIcon("images/gifRegistro3.gif");
+		ImageIcon gifRegistro = new ImageIcon("images/gifRegistro2.gif");
 		JLabel labelGifRegistro = new JLabel(gifRegistro);
-		labelGifRegistro.setBounds(0, 100, 600, 600);
+		labelGifRegistro.setBounds(0, 50, 600, 600);
 		add(labelGifRegistro);
 
 		JPanel panelIzquierdo = new JPanel();
@@ -71,9 +74,9 @@ public class MenuRegistro extends JFrame {
 		textoApellido.setBounds(700, 200, 400, 30);
 		add(textoApellido);
 
-		PlaceholderTextField telefono = new PlaceholderTextField("Ingrese su número telefónico: ");
-		telefono.setBounds(700, 400, 400, 30);
-		add(telefono);
+		PlaceholderTextField textoTelefono = new PlaceholderTextField("Ingrese su número telefónico: ");
+		textoTelefono.setBounds(700, 400, 400, 30);
+		add(textoTelefono);
 
 		cuadroIdReserva = new PlaceholderTextField("ID de Reserva: ");
 		cuadroIdReserva.setBounds(700, 450, 400, 30);
@@ -147,14 +150,14 @@ public class MenuRegistro extends JFrame {
 		etiquetaFechaNacimiento.setFont(new Font("Arial", Font.BOLD, 16));
 		add(etiquetaFechaNacimiento);
 
-		JDateChooser fechaNacimiento = new JDateChooser();
-		fechaNacimiento.setBounds(700, 290, 400, 30);
-		add(fechaNacimiento);
+		JDateChooser dateChooserFechaNacimiento = new JDateChooser();
+		dateChooserFechaNacimiento.setBounds(700, 290, 400, 30);
+		add(dateChooserFechaNacimiento);
 
-		fechaNacimiento.addFocusListener(new FocusAdapter() {
+		dateChooserFechaNacimiento.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				fechaNacimiento.setCalendar(null); // Borra la selección anterior si la hay
+				dateChooserFechaNacimiento.setCalendar(null); // Borra la selección anterior si la hay
 			}
 		});
 
@@ -191,6 +194,43 @@ public class MenuRegistro extends JFrame {
 		add(comboBoxNacionalidad);
 
 //		2.8. Métodos
+		
+		// ActionListener para el botón "Guardar"
+		botonGuardar.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        // Obtener los datos ingresados por el usuario desde la interfaz
+		        String nombre = textoNombre.getText();
+		        String apellido = textoApellido.getText();
+		        Date fechaNacimiento = dateChooserFechaNacimiento.getDate();
+		        String nacionalidad = comboBoxNacionalidad.getSelectedItem().toString();
+		        String telefono = textoTelefono.getText();
+		        String idReserva = cuadroIdReserva.getText();
+		        String idReserva1 = idReserva.replace("ID de Reserva: ", "");
+
+		        // Crear una instancia de HuespedesController
+		        HuespedesController huespedesController = new HuespedesController();
+
+		        // Llamar al método en HuespedesController para guardar los datos
+		        boolean exito = huespedesController.guardarHuesped(nombre, apellido, fechaNacimiento, nacionalidad, telefono, idReserva1);
+
+		        if (exito) {
+		            // Mostrar un mensaje de éxito
+		            JOptionPane.showMessageDialog(null, "Huésped guardado con éxito");
+		        } else {
+		            // Mostrar un mensaje de error si la operación falla
+		            JOptionPane.showMessageDialog(null, "Error al guardar el huésped", "Error", JOptionPane.ERROR_MESSAGE);
+		        }
+
+		        // Limpiar los campos de entrada después de guardar
+		        textoNombre.setText("");
+		        textoApellido.setText("");
+		        dateChooserFechaNacimiento.setDate(null);
+		        comboBoxNacionalidad.setSelectedIndex(0);
+		        textoTelefono.setText("");
+		        cuadroIdReserva.setText("");
+		    }
+		});
+		
 
 		// Botón para regresar a Menú Reservas
 		botonRegresar.addActionListener(new ActionListener() {
