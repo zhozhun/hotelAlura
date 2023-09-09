@@ -9,7 +9,7 @@ import com.alura.jdbc.factory.ConnectionFactory;
 
 public class HuespedesController {
 
-	public boolean guardarHuesped(String nombre, String apellido, Date fechaNacimiento, String nacionalidad,
+	public boolean crearHuesped(String nombre, String apellido, Date fechaNacimiento, String nacionalidad,
 			String telefono, String idReserva) {
 		Connection connection = null;
 		PreparedStatement statement = null;

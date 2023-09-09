@@ -23,9 +23,37 @@ import com.alura.jdbc.modelo.PlaceholderTextField;
 import com.toedter.calendar.JDateChooser;
 
 import com.alura.jdbc.controller.HuespedesController;
+import com.alura.jdbc.controller.ReservasController;
 
 public class MenuRegistro extends JFrame {
-	PlaceholderTextField cuadroIdReserva;
+
+//	==================== campos de clase ====================
+
+	private Date fechaEntrada;
+	private Date fechaSalida;
+	private double costoTotal;
+	private String formaPago;
+	private int idReserva;
+
+	JTextField textoIdReserva = new JTextField();
+	
+    public void setFechaEntrada(Date fechaEntrada) {
+        this.fechaEntrada = fechaEntrada;
+    }
+
+    public void setFechaSalida(Date fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }
+
+    public void setFormaPago(String formaPago) {
+        this.formaPago = formaPago;
+    }
+
+    public void setIdReserva(int idReserva) {
+        this.idReserva = idReserva;
+    }
+	
+//	==================== ejecución interfaz ====================
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> {
@@ -36,11 +64,18 @@ public class MenuRegistro extends JFrame {
 		});
 	}
 
+//	==================== constructores ====================
 	public MenuRegistro() {
+		
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.formaPago = formaPago;
+		this.idReserva = idReserva;
+
 //		Usar un layout nulo (null layout) para desactivar el diseño automático
 		setLayout(null);
 
-//    	1. Elementos básicos
+//    	==================== 1. Elementos básicos ====================
 //		Configurar el título de la ventana
 		setTitle("Reservas");
 //		Establecer el tamaño de la ventana (ancho x alto)
@@ -48,8 +83,8 @@ public class MenuRegistro extends JFrame {
 //		Configurar la operación al cerrar la ventana
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//		2. Componentes
-//		2.1. Páneles
+//		==================== 2. Componentes ====================
+//		==================== 2.1. Páneles ====================
 
 		ImageIcon gifRegistro = new ImageIcon("images/gifRegistro2.gif");
 		JLabel labelGifRegistro = new JLabel(gifRegistro);
@@ -62,9 +97,9 @@ public class MenuRegistro extends JFrame {
 		panelIzquierdo.setOpaque(true);
 		add(panelIzquierdo);
 
-//		2.2.Labels/Etiquetas
+//		==================== 2.2.Labels/Etiquetas ====================
 
-//		2.3. Textos
+//		==================== 2.3. Textos ====================
 
 		PlaceholderTextField textoNombre = new PlaceholderTextField("Ingrese su nombre: ");
 		textoNombre.setBounds(700, 150, 400, 30);
@@ -78,13 +113,13 @@ public class MenuRegistro extends JFrame {
 		textoTelefono.setBounds(700, 400, 400, 30);
 		add(textoTelefono);
 
-		cuadroIdReserva = new PlaceholderTextField("ID de Reserva: ");
-		cuadroIdReserva.setBounds(700, 450, 400, 30);
-		cuadroIdReserva.setEditable(false);
-		add(cuadroIdReserva);
+		textoIdReserva = new PlaceholderTextField("ID de Reserva: ");
+		textoIdReserva.setBounds(700, 450, 400, 30);
+		textoIdReserva.setEditable(false);
+		add(textoIdReserva);
 
-//		2.4. Botones
-		
+//		==================== 2.4. Botones ====================
+
 		JButton botonGuardar = new JButton("Guardar");
 		botonGuardar.setBounds(700, 560, 150, 40);
 		botonGuardar.setBackground(new Color(51, 153, 255));
@@ -96,7 +131,7 @@ public class MenuRegistro extends JFrame {
 		add(botonGuardar);
 		// Cambiar tipo de cursos al hacer click encima
 		botonGuardar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
+
 		JButton botonBorrar = new JButton("Borrar");
 		botonBorrar.setBounds(900, 560, 150, 40);
 		botonBorrar.setBackground(new Color(51, 153, 255));
@@ -136,14 +171,14 @@ public class MenuRegistro extends JFrame {
 		// Cambiar tipo de cursos al hacer click encima
 		botonInicio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-//		2.5. Imágenes
+//		==================== 2.5. Imágenes ====================
 
 		ImageIcon tituloReservas = new ImageIcon("images/tituloReservas.png");
 		JLabel labelTituloReservas = new JLabel(tituloReservas);
 		labelTituloReservas.setBounds(600, 0, 600, 200);
 		add(labelTituloReservas);
 
-//		2.6, Elemento de calendario
+//		==================== 2.6, Elemento de calendario ====================
 
 		JLabel etiquetaFechaNacimiento = new JLabel("Fecha de nacimiento: ");
 		etiquetaFechaNacimiento.setBounds(700, 250, 400, 30);
@@ -161,7 +196,8 @@ public class MenuRegistro extends JFrame {
 			}
 		});
 
-//		2.7. ComboBox
+//		==================== 2.7. ComboBox ====================
+
 		String[] opcionesNacionalidad = { "Seleccione una nacionalidad", "Afganistán", "Albania", "Alemania", "Andorra",
 				"Angola", "Antigua y Barbuda", "Arabia Saudita", "Argelia", "Argentina", "Armenia", "Australia",
 				"Austria", "Azerbaiyán", "Bahamas", "Bahréin", "Bangladés", "Barbados", "Bélgica", "Belice", "Benín",
@@ -192,45 +228,78 @@ public class MenuRegistro extends JFrame {
 		JComboBox<String> comboBoxNacionalidad = new JComboBox<>(opcionesNacionalidad);
 		comboBoxNacionalidad.setBounds(700, 350, 400, 30);
 		add(comboBoxNacionalidad);
-
-//		2.8. Métodos
 		
+//		==================== 2.8. Métodos ====================
+
+		// Crear una instancia de HuespedesController
+		HuespedesController huespedesController = new HuespedesController();
+
+		// Crear una instancia de ReservasController
+		ReservasController reservasController = new ReservasController();
+
 		// ActionListener para el botón "Guardar"
 		botonGuardar.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        // Obtener los datos ingresados por el usuario desde la interfaz
-		        String nombre = textoNombre.getText();
-		        String apellido = textoApellido.getText();
-		        Date fechaNacimiento = dateChooserFechaNacimiento.getDate();
-		        String nacionalidad = comboBoxNacionalidad.getSelectedItem().toString();
-		        String telefono = textoTelefono.getText();
-		        String idReserva = cuadroIdReserva.getText();
-		        String idReserva1 = idReserva.replace("ID de Reserva: ", "");
+			public void actionPerformed(ActionEvent e) {
+				// Obtener los datos ingresados por el usuario desde la interfaz
+				String nombre = textoNombre.getText();
+				String apellido = textoApellido.getText();
+				Date fechaNacimiento = dateChooserFechaNacimiento.getDate();
+				String nacionalidad = comboBoxNacionalidad.getSelectedItem().toString();
+				String telefono = textoTelefono.getText();
+				String idReserva = textoIdReserva.getText();
+				String idReserva1 = idReserva.replace("ID de Reserva: ", "");
 
-		        // Crear una instancia de HuespedesController
-		        HuespedesController huespedesController = new HuespedesController();
+				// Llamar al método en HuespedesController para guardar los datos
+				boolean exito = huespedesController.crearHuesped(nombre, apellido, fechaNacimiento, nacionalidad,
+						telefono, idReserva1);
 
-		        // Llamar al método en HuespedesController para guardar los datos
-		        boolean exito = huespedesController.guardarHuesped(nombre, apellido, fechaNacimiento, nacionalidad, telefono, idReserva1);
+				if (exito) {
+					// Mostrar un mensaje de éxito
+					JOptionPane.showMessageDialog(null, "Huésped guardado con éxito");
+				} else {
+					// Mostrar un mensaje de error si la operación falla
+					JOptionPane.showMessageDialog(null, "Error al guardar el huésped", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
 
-		        if (exito) {
-		            // Mostrar un mensaje de éxito
-		            JOptionPane.showMessageDialog(null, "Huésped guardado con éxito");
-		        } else {
-		            // Mostrar un mensaje de error si la operación falla
-		            JOptionPane.showMessageDialog(null, "Error al guardar el huésped", "Error", JOptionPane.ERROR_MESSAGE);
-		        }
+				// Llamar al método en ReservasController para crear la reserva
+				// Asegúrate de ajustar los valores apropiados para fechaEntrada, fechaSalida,
+				// valor y formaPago
 
-		        // Limpiar los campos de entrada después de guardar
-		        textoNombre.setText("");
-		        textoApellido.setText("");
-		        dateChooserFechaNacimiento.setDate(null);
-		        comboBoxNacionalidad.setSelectedIndex(0);
-		        textoTelefono.setText("");
-		        cuadroIdReserva.setText("");
-		    }
+				boolean exitoReserva = reservasController.crearReserva(idReserva1, fechaEntrada, fechaSalida,
+						costoTotal, formaPago);
+
+				if (exitoReserva) {
+					// Mostrar un mensaje de éxito
+					JOptionPane.showMessageDialog(null, "Reserva creada con éxito");
+				} else {
+					// Mostrar un mensaje de error si la operación de guardar la reserva falla
+					JOptionPane.showMessageDialog(null, "Error al guardar la reserva", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+				// Limpiar los campos de entrada después de guardar
+				textoNombre.setText("");
+				textoApellido.setText("");
+				dateChooserFechaNacimiento.setDate(null);
+				comboBoxNacionalidad.setSelectedIndex(0);
+				textoTelefono.setText("");
+				textoIdReserva.setText("");
+			}
 		});
-		
+
+		// ActionListener para el botón "Borrar"
+		botonBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Establecer los campos de texto y otros componentes a sus valores iniciales o
+				// vacíos
+				textoNombre.setText("");
+				textoApellido.setText("");
+				dateChooserFechaNacimiento.setCalendar(null);
+				comboBoxNacionalidad.setSelectedIndex(0);
+				textoTelefono.setText("");
+			}
+		});
 
 		// Botón para regresar a Menú Reservas
 		botonRegresar.addActionListener(new ActionListener() {
@@ -258,6 +327,17 @@ public class MenuRegistro extends JFrame {
 
 		});
 
+	}
+	
+	public MenuRegistro(Date fechaEntrada, Date fechaSalida, String formaPago, int idReserva) {
+	    this(); // Llama al constructor sin argumentos que muestra la interfaz
+	    this.fechaEntrada = fechaEntrada;
+	    this.fechaSalida = fechaSalida;
+	    this.formaPago = formaPago;
+	    this.idReserva = idReserva;
+	    
+
+	   
 	}
 
 }

@@ -40,28 +40,42 @@ public class MenuPrincipal extends JFrame {
 //	    2. Componentes
 //		2.1. Páneles
 		
-		JLabel etiquetaIniciar = new JLabel("Iniciar");
-		etiquetaIniciar.setBounds(835, 350, 200, 30);
-		Font fuenteEtiquetaIniciar = new Font("Arial", Font.BOLD, 40);
-		etiquetaIniciar.setFont(fuenteEtiquetaIniciar);
-		add(etiquetaIniciar);
-		
+//		JLabel etiquetaIniciar = new JLabel("Iniciar");
+//		etiquetaIniciar.setBounds(625, 350, 200, 30);
+//		Font fuenteEtiquetaIniciar = new Font("Arial", Font.BOLD, 40);
+//		etiquetaIniciar.setFont(fuenteEtiquetaIniciar);
+//		add(etiquetaIniciar);
+//		
 		ImageIcon imagenTitulo = new ImageIcon("images/tituloHotel1.png");
 		JLabel labelImagenTitulo = new JLabel(imagenTitulo);
 		labelImagenTitulo.setBounds(600, 0, 600, 300);
 		add(labelImagenTitulo);
 		
+		ImageIcon imagenSearch = new ImageIcon("images/iconSearch.png");
+		JLabel labelImagenSearch = new JLabel(imagenSearch);
+		labelImagenSearch.setBounds(720, 515, 30, 30);
+		add(labelImagenSearch);
+		
 
 		Color color1 = new Color(33, 155, 194); // Color central
 		Color color2 = new Color(51, 153, 255); // Color exterior
-		BotonDegradadoRadial botonInicio = new BotonDegradadoRadial("♜", color1, color2);
-		botonInicio.setBounds(825, 400, 150, 150);
+		BotonDegradadoRadial botonInicio = new BotonDegradadoRadial("✈ Iniciar", color1, color2);
+		botonInicio.setBounds(700, 300, 400, 70);
 		botonInicio.setBorder(new RoundedBorder(40));
-		Font fuenteBotonInicio= new Font("Arial", Font.BOLD, 70);
+		Font fuenteBotonInicio= new Font("Arial", Font.BOLD, 50);
 		botonInicio.setFont(fuenteBotonInicio);
 		add(botonInicio);
 		// Cambiar tipo de cursos al hacer click encima
 		botonInicio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); 
+		
+		BotonDegradadoRadial botonBuscar = new BotonDegradadoRadial("Reservas", color1, color2);
+		botonBuscar.setBounds(700, 500, 400, 70);
+		botonBuscar.setBorder(new RoundedBorder(40));
+		Font fuenteBotonBuscar= new Font("Arial", Font.BOLD, 50);
+		botonBuscar.setFont(fuenteBotonBuscar);
+		add(botonBuscar);
+		// Cambiar tipo de cursos al hacer click encima
+		botonBuscar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); 
 		
 
 		JPanel panelDerecho = new JPanel();
@@ -99,6 +113,9 @@ public class MenuPrincipal extends JFrame {
             }
 
         });
+        
+        // Botón para ir a buscar reservas
+        
 
 	}
 

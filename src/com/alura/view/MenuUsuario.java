@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 public class MenuUsuario extends JFrame {
 
 	public static void main(String[] args) {
@@ -27,7 +26,7 @@ public class MenuUsuario extends JFrame {
 		setLayout(null);
 
 //    	1. Elementos básicos
-		
+
 //		Configurar el título de la ventana
 		setTitle("Iniciar sesión");
 //		Establecer el tamaño de la ventana (ancho x alto)
@@ -37,7 +36,7 @@ public class MenuUsuario extends JFrame {
 
 //      2. Componentes
 //		2.1. Páneles
-		
+
 //		poner imagen primero para que aparezca encima del pánel
 		ImageIcon imagenTitulo = new ImageIcon("images/tituloIniciarSesion.png");
 		JLabel labelImagenTitulo = new JLabel(imagenTitulo);
@@ -57,7 +56,7 @@ public class MenuUsuario extends JFrame {
 		add(panelIzquierdo);
 
 //		2.2.Labels/Etiquetas
-		
+
 		JLabel etiquetaUsuario = new JLabel("Usuario: ");
 		etiquetaUsuario.setBounds(725, 370, 200, 30);
 		Font fuenteEtiquetaUsuario = new Font("Arial", Font.BOLD, 16);
@@ -71,7 +70,7 @@ public class MenuUsuario extends JFrame {
 		add(etiquetaContrasena);
 
 //		2.3. Textos
-		
+
 //		agregar texto con place holder
 		PlaceholderTextField textoUsuario = new PlaceholderTextField("Ingresar el usuario");
 		textoUsuario.setBounds(725, 400, 300, 40);
@@ -86,7 +85,7 @@ public class MenuUsuario extends JFrame {
 		add(textoContrasena);
 
 //		2.4. Botones
-		
+
 		Color color1 = new Color(24, 181, 231); // Color central
 		Color color2 = new Color(33, 155, 194); // Color exterior
 		BotonDegradadoRadial botonLogin = new BotonDegradadoRadial("Iniciar sesión", color1, color2);
@@ -98,14 +97,14 @@ public class MenuUsuario extends JFrame {
 		// Cambiar tipo de cursos al hacer click encima
 		botonLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-        JButton botonInicio = new JButton("⌂");
-        botonInicio.setBounds(1100, 660, 80, 80);
-        Color colorPersonalizado = new Color(51, 153, 255);
-        botonInicio.setBackground(colorPersonalizado);
-        // Desactivar el pintado del borde predeterminado
-        botonInicio.setBorderPainted(false);
-        // Cambiar la curvatura de las esquinas
-        botonInicio.setBorder(new BordeRedondo(20));
+		JButton botonInicio = new JButton("⌂");
+		botonInicio.setBounds(1100, 660, 80, 80);
+		Color colorPersonalizado = new Color(51, 153, 255);
+		botonInicio.setBackground(colorPersonalizado);
+		// Desactivar el pintado del borde predeterminado
+		botonInicio.setBorderPainted(false);
+		// Cambiar la curvatura de las esquinas
+		botonInicio.setBorder(new BordeRedondo(20));
 		Font fuenteBotonInicio = new Font("Arial", Font.BOLD, 30);
 		botonInicio.setFont(fuenteBotonInicio);
 		add(botonInicio);
@@ -113,75 +112,74 @@ public class MenuUsuario extends JFrame {
 		botonInicio.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 //		2.5. Imágenes
-		
+
 		ImageIcon imagenLogin = new ImageIcon("images/safe1.gif");
 		JLabel labelImagenLogin = new JLabel(imagenLogin);
 		labelImagenLogin.setBounds(725, 50, 300, 300);
 		add(labelImagenLogin);
 
 //		2.6. Métodos
-		
-        // Botón para ir a MenuPrincipal
-        botonInicio.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Oculta la ventana actual (MenuPrincipal)
-                setVisible(false);
 
-                // Crea una instancia de MenuUsuario y la muestra
-                MenuPrincipal menuPrincipal = new MenuPrincipal();
-                menuPrincipal.setVisible(true);
-            }
+		// Botón para ir a MenuPrincipal
+		botonInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Oculta la ventana actual (MenuPrincipal)
+				setVisible(false);
 
-        });
-		
-        
-        // Botón para iniciar sesión
-        botonLogin.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String nombreUsuario = textoUsuario.getText();
-                String contrasena = new String(textoContrasena.getPassword());
+				// Crea una instancia de MenuUsuario y la muestra
+				MenuPrincipal menuPrincipal = new MenuPrincipal();
+				menuPrincipal.setVisible(true);
+			}
 
-                // Verificar las credenciales directamente con UsuarioDAO
-                UsuarioDAO usuarioDAO = new UsuarioDAO();
-                boolean autenticado = usuarioDAO.autenticarUsuario(nombreUsuario, contrasena);
+		});
 
-                if (autenticado) {
-                    // Si las credenciales son válidas, realizar acciones para iniciar sesión
-                    JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
-                  
+		// Botón para iniciar sesión
+		botonLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nombreUsuario = textoUsuario.getText();
+				String contrasena = new String(textoContrasena.getPassword());
+
+				// Verificar las credenciales directamente con UsuarioDAO
+				UsuarioDAO usuarioDAO = new UsuarioDAO();
+				boolean autenticado = usuarioDAO.autenticarUsuario(nombreUsuario, contrasena);
+
+				if (autenticado) {
+					// Si las credenciales son válidas, realizar acciones para iniciar sesión
+					JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso.");
+
 //                 código para redirigir a la siguiente ventana (Menú de Reservas)
-                   MenuReservas menuReservas = new MenuReservas();
-                   menuReservas.setVisible(true);
-                    
-                    dispose();
-                } else {
-                    // Si las credenciales no son válidas, mostrar un mensaje de error
-                    JOptionPane.showMessageDialog(null, "Credenciales incorrectas. Intente nuevamente.");
-                    // Puedes agregar más lógica según tus requerimientos, como bloquear el acceso después de varios intentos fallidos
-                }
-            }
-        });
-        
-        
+					MenuReservas menuReservas = new MenuReservas();
+					menuReservas.setVisible(true);
+
+					dispose();
+				} else {
+					// Si las credenciales no son válidas, mostrar un mensaje de error
+					JOptionPane.showMessageDialog(null, "Credenciales incorrectas. Intente nuevamente.");
+					// Puedes agregar más lógica según tus requerimientos, como bloquear el acceso
+					// después de varios intentos fallidos
+				}
+			}
+		});
+
 	}
 }
 
 class BordeRedondo implements Border {
-    private int radioCurvatura;
+	private int radioCurvatura;
 
-    public BordeRedondo(int radioCurvatura) {
-        this.radioCurvatura = radioCurvatura;
-    }
+	public BordeRedondo(int radioCurvatura) {
+		this.radioCurvatura = radioCurvatura;
+	}
 
-    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        g.drawRoundRect(x, y, width - 1, height - 1, radioCurvatura, radioCurvatura);
-    }
+	public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+		g.drawRoundRect(x, y, width - 1, height - 1, radioCurvatura, radioCurvatura);
+	}
 
-    public Insets getBorderInsets(Component c) {
-        return new Insets(radioCurvatura, radioCurvatura, radioCurvatura, radioCurvatura);
-    }
+	public Insets getBorderInsets(Component c) {
+		return new Insets(radioCurvatura, radioCurvatura, radioCurvatura, radioCurvatura);
+	}
 
-    public boolean isBorderOpaque() {
-        return true;
-    }
+	public boolean isBorderOpaque() {
+		return true;
+	}
 }
