@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Huespedes {
 
 //	campos de clase
-	private int idHuespedes;
+	private int idHuesped;
 	private String nombreHuesped;
 	private String apellidoHuesped;
 	private Date fechaNacimiento;
@@ -14,15 +14,21 @@ public class Huespedes {
 	private int reserva;
 
 //  constructor
+	
+    public Huespedes(int id, String nombre, String apellido) {
+        this.idHuesped = id;
+        this.nombreHuesped = nombre;
+        this.apellidoHuesped = apellido;
+    }
 
 //	setter & getter
 
-	public int getIdHuespedes() {
-		return idHuespedes;
+	public int getIdHuesped() {
+		return idHuesped;
 	}
 
-	public void setIdHuespedes(int idHuespedes) {
-		this.idHuespedes = idHuespedes;
+	public void setIdHuesped(int idHuespedes) {
+		this.idHuesped = idHuespedes;
 	}
 
 	public String getNombreHuesped() {

@@ -29,6 +29,7 @@ public class MenuRegistro extends JFrame {
 
 //	==================== campos de clase ====================
 
+//	recibir datos de la clase MenuReservas.java (1/3)
 	private Date fechaEntrada;
 	private Date fechaSalida;
 	private double costoTotal;
@@ -36,6 +37,8 @@ public class MenuRegistro extends JFrame {
 	private int idReserva;
 
 	JTextField textoIdReserva = new JTextField();
+	
+//	recibir datos de la clase MenuReservas.java (2/3)
 	
     public void setFechaEntrada(Date fechaEntrada) {
         this.fechaEntrada = fechaEntrada;
@@ -67,11 +70,6 @@ public class MenuRegistro extends JFrame {
 //	==================== constructores ====================
 	public MenuRegistro() {
 		
-		this.fechaEntrada = fechaEntrada;
-		this.fechaSalida = fechaSalida;
-		this.formaPago = formaPago;
-		this.idReserva = idReserva;
-
 //		Usar un layout nulo (null layout) para desactivar el diseño automático
 		setLayout(null);
 
@@ -328,6 +326,8 @@ public class MenuRegistro extends JFrame {
 		});
 
 	}
+	
+//	recibir datos de la clase MenuReservas.java (3/3)
 	
 	public MenuRegistro(Date fechaEntrada, Date fechaSalida, String formaPago, int idReserva) {
 	    this(); // Llama al constructor sin argumentos que muestra la interfaz

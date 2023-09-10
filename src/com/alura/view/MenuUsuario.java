@@ -68,7 +68,8 @@ public class MenuUsuario extends JFrame {
 		Font fuenteEtiquetaContrasena = new Font("Arial", Font.BOLD, 16);
 		etiquetaContrasena.setFont(fuenteEtiquetaContrasena);
 		add(etiquetaContrasena);
-
+		
+		
 //		2.3. Textos
 
 //		agregar texto con place holder
@@ -83,6 +84,11 @@ public class MenuUsuario extends JFrame {
 		textoContrasena.setBounds(725, 500, 300, 40);
 		textoContrasena.setBorder(new RoundedBorder(10));
 		add(textoContrasena);
+		
+//		JLabel label1 = new JLabel("Contraseña: ");
+//		label1.setBounds(0, 0, 200, 30);
+//		textoContrasena.add(label1);
+
 
 //		2.4. Botones
 

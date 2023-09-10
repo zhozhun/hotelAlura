@@ -197,7 +197,6 @@ public class MenuReservas extends JFrame {
 							"Días: " + diasAlojamiento + " | Costo Total: $" + String.format("%.2f", costoTotal));
 					textoIdReserva.setText("ID de Reserva: " + idReserva);
 
-					MenuRegistro MenuRegistro = new MenuRegistro();
 
 				}
 			}
@@ -241,6 +240,8 @@ public class MenuReservas extends JFrame {
 		});
 
 	}
+	
+	// Pasar datos obtenidos a la otra clase
 	
 	public Date obtenerFechaEntradaDesdeMenuReservas() {
 	    return fechaEntrada;
