@@ -31,13 +31,13 @@ public class HuespedesDAO {
                 int idHuesped = rs.getInt("idHuespedes");
                 String nombreHuesped = rs.getString("nombre");
                 String apellidoHuesped = rs.getString("apellido");
-                // Agrega más campos si es necesario
+              
 
                 Huespedes huesped = new Huespedes(idHuesped, nombreHuesped, apellidoHuesped);
                 huespedes.add(huesped);
             }
         } catch (SQLException e) {
-            // Maneja las excepciones de SQL aquí
+            // Manejar las excepciones de SQL aquí
         }
         return huespedes;
     }
